@@ -27,15 +27,32 @@
     </script>
   </head>
   <body>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Wine Shop</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Aout Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">Update Address</a></li>
+        <li><a href="#">Orders</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
     <div class="container-fluid">
 
       <div class="row"style="margin-top:70px;">
-        <div class="col-sm-4" style="">
 
-
-
-        </div>
-        <div class="col-sm-4" style="">
+        <div class="col-sm-12" style="">
           {% block content %}
 
 
@@ -57,7 +74,7 @@
 
               {% for k in j %}
 
-               <td > <a href="#}"> {{k}}</a> </td>
+               <td > <a href="View_product/{{i}}"> {{k}}</a> </td>
               {% endfor %}
 
               </tr>
@@ -72,15 +89,6 @@
 
 
                {% endblock %}
-
-
-
-
-
-        </div>
-        <div class="col-sm-4" style="">
-
-
 
 
 
