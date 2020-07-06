@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% csrf_token %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){
+          $('#Name').val('{{data.name}}');
+          $('#Category').attr("disabled", "disabled");
+          $('#total_price').attr("disabled", "disabled");
+          $('#Price').attr("disabled", "disabled");
+          $('#Name').attr("disabled", "disabled");
+
+          //$('#Contact').val('{{form.number}}');
+          $('#defaultUnchecked').attr("disabled", "disabled");
+          $('#Price').val('{{data.Price}}');
+          $('#Category').val('{{data.Category}}');
+          //$('#Price').val('{{data.Price}}');
+        //  $('#Address').attr("disabled", "disabled");
+        var str = $("#quantity").val();
+        $('#quantity').change(function(){
+         str = $("#quantity").val();
+          //alert(str)
+          if(str==0 || str<0){
+              $('#total_price').val(0);
+          }
+          else{
+            var total=(str*{{data.Price}})+5
+            $('#total_price').val(total);
+          }
+
+          //alert(total)
+
+        });
+
+        $('#cart').click(function(){
+          alert('inside cart');
+          var id={{data.id}}
+          alert(id)
+          if(str<=0){
+            alert('invalid order')
+          }
+          else{
+            $.ajax({
+          url: 'cart',
+          dataType: 'json',
+          data: {
+            'id': id,
+            'quantity':str
+          },
+
+          success: function (data) {
+            alert('{{date}}')
+            //location.reload();
+          }
+        });
+
+          }
+
+
+        });
+
+      });
+
+    </script>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-12">
+
+      <div class="panel panel-success">
+      <div class="panel-heading">Buy {{data.name}}</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="control-label pull-left" for="textinput">Name</label>
+          <input id="Name" name="textinput" type="text" placeholder="" class="form-control input-md">
+          <label class="control-label pull-left" for="textinput">Category</label>
+          <input id="Category" name="Category" type="text" placeholder="" class="form-control input-md">
+          <label class="control-label pull-left" for="textinput">Price</label>
+          <input id="Price" name="Price" type="text" placeholder="" class="form-control input-md"><br>
+          <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+      <label class="custom-control-label" checked>Additional 5rs charge for permit</label>
+        </div>
+          <br>
+            <label class="control-label pull-left" for="quantity">Quantity</label><br><br>
+            <input type="number" name="quantity" id="quantity"></input><br><br>
+          <label class="control-label pull-left" for="textinput">Total</label>
+          <input id="total_price" name="total_price" type="number" placeholder="" class="form-control input-md">
+         </div>
+
+
+
+      </div>
+
+      <div class="panel-footer">
+        <button type="button" class="btn btn-info" id='cart'><a href="#">Add to Cart</a></button>
+        <button type="submit" class="btn btn-success">Proceed to checkout</button>
+
+
+      </div>
+    </div>
+
+
+        </div>
+
+
+        </div>
+
+          </div>
+  </body>
+</html>

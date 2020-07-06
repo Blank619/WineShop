@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import HomeView,view_category,View_product,register_1,Update_address
+from .views import HomeView,view_category,View_product,register_1,view_address,cart,update_address_1,view_cart
 
 urlpatterns = [
 
@@ -27,7 +27,10 @@ urlpatterns = [
     path('register_1',register_1),
     path('login/',auth_views.LoginView.as_view(template_name="login.html")),
     path('logout/',auth_views.LogoutView.as_view(template_name="logout.html")),
-    path('Update_address',Update_address),
+    path('view_address',view_address),
+    path('View_product/<int:id>/cart', cart),
+    path('update_address2',update_address_1),
+    path('view_cart',view_cart)
 
 
 ]

@@ -11,3 +11,21 @@ class RegisterItem(models.Model):
 
     def __str__(self):
         return  self.name
+
+
+class Cart(models.Model):
+    username=models.CharField(max_length=120)
+    user_id=models.IntegerField()
+    product_id=models.IntegerField()
+    quantity=models.IntegerField(default=1)
+
+    def __str__(self):
+        return  self.username
+
+
+class cust_details(models.Model):
+    username=models.CharField(max_length=120)
+    address=models.CharField(max_length=500)
+    number=models.IntegerField()
+    def __str__(self):
+        return  self.username

@@ -1,11 +1,52 @@
 <!DOCTYPE html>
+{% csrf_token %}
 <html lang="en" dir="ltr">
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
 
+      $('#update1').click(function(){
+        alert('inside update');
+        var address=$('#textarea').val();
+        var num=$('#number').val();
+        alert(address)
+        alert(num)
+        if(address.length<=0||num.length<=0){
+          alert('invalid order')
+        }
+        else{
+          $.ajax({
+        url: '/update_address',
+        data: {
+          'address': address,
+          'num':num
+        },
+
+        success: function (data) {
+          alert('{{date}}')
+          //location.reload();
+        }
+      });
+
+        //}
+
+
+      });
+
+
+    });
+
+
+
+
+
+
+    </script>
   </head>
+
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -13,8 +54,31 @@
 
     <div class="container">
 
-    <h2>Update address for {{user.user}}</h2>
 
+    <div class='row'>
+      <div class="col-sm-12">
+      <div class="panel panel-success">
+     <div class="panel-heading">Update details</div>
+     <div class="panel-body">
+         <div class="form-group">
+         <form action='/update_address2' method='post'>
+           <label class="control-label pull-left" for="textinput">Address:</label>
+           <input id="textarea" name="textarea" type="textarea" placeholder="" class="form-control input-md">
+           <label class="control-label pull-left" for="textinput">Phone number:</label>
+           <input id="number" name="number" type="number" placeholder="" class="form-control input-md">
+         </div>
+         <br>
+     </div>
+
+
+     {% csrf_token %}
+
+     <button type="submit" id='update' class="btn btn-success">Update</button>
+     </form>
+
+    </div>
+
+      </div>
     </div>
 
   </body>
