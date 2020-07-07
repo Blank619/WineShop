@@ -1,4 +1,6 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
+            {% block content %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -6,44 +8,69 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+      $(function(){
+      if({{total}} < 2000){
+        $('#checkout').prop('disabled', true);
+        $('#cartval').display = "block";
+      }
+      else {
+        $('#cartval').hide();
+      }
+    });
+    </script>
   </head>
   <body>
     <div class="container">
       <div class="row">
-        {% block content %}
-        {% for i,j in data.items %}
         <div class="panel panel-success">
-        <div class="panel-heading">User Details</div>
+        <div class="panel-heading">User Cart</div>
         <div class="panel-body">
-          <div class="form-group">
-            <label for="">User:<input type="text" name="" value="">  </label><br>
-            <label for="">Address: <input type="text" name="" value=""> </label><br>
-            <label for="">Number:  <input type="text" name="" value=""></label><br>
-           </div>
-           {% for k in j %}
-           <div class="form-group">
-            <label for=""> {{k}}<br>
-              </div>
+           <div class="table-responsive">
+             <table class="table table-striped">
+               <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Category</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th> </th>
+                        </tr>
+              </thead>
+              {% for i,j in data.items %}
+              <tr>
+                <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
+                <td>{{j.0}} ({{j.3}} ml)</td>
+                <td>{{j.1}}</td>
+                <td><input class="form-control" type="text" value="{{j.4}}"/></td>
+                <td class="text-right">Rs. {{j.5}}</td>
+                <td class="text-right"><button class="btn btn-sm btn-danger" id="{{i}}"> Remove</button> </td>
+              </tr>
+          {% endfor %}
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Grand Total</strong></td>
+                <td class="text-right"><strong>Rs. {{total}}</strong></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" name="Update" id="Update" class="btn btn-primary"> Update Cart</button></td>
+                <td class="text-right"><button type="button" name="checkout" id="checkout" class="btn btn-lg  btn-success text-uppercase"> Checkout </button>
+                  <div class="text-danger">
+                    <span id="cartval"> Cart value must be Rs 2000 or more.</span>
+                  </div>
+                </td>
+              </tr>
+             </table>
+            </div>
+          </div>
 
-                 {% endfor %}
-
-
-
-        </div>
-
-
-      </div>
-
-
-
-
-              {% endfor %}
-
-        {% endblock %}
-
-
-
-      </div>
-
+            {% endblock %}
   </body>
 </html>
