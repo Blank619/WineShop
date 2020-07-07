@@ -109,10 +109,46 @@ def update_address_1(request):
 
 def view_cart(request):
     cart_data=Cart.objects.filter(username=request.user.username)
+    dict1={}
+    list1=[]
+    list2=[]
+    grand_total=0
     print(cart_data)
     for i in cart_data:
-        print(i.username)
-        print(i.user_id)
-        print(i.product_id)
-        print(i.quantity)
-    return render(request,'./viewcart.html')
+        items=RegisterItem.objects.filter(pk=i.product_id)
+        price=0
+        total_price=0
+        quantity=i.quantity
+        print('quanity of bottles- ',quantity)
+        print('id for cart data ',i.id)
+        for k in items:
+            #print('cart id= ',k.id)
+            #print(k.name)
+            #print(k.Category)
+            #print(k.Price)
+            list1.append(k.name)
+            list1.append(k.Category)
+            list1.append(k.Price)
+            list1.append(k.quantity)
+            list1.append(quantity)
+            #list1.append(i.id)
+            total_price=k.Price*quantity
+            list1.append(total_price)
+            #print("ml - ",k.quantity)
+            #print("total -", total_price)
+            list2 = copy.deepcopy(list1)
+            dict1[i.id]=list2
+            print(list1)
+            list1.clear()
+            grand_total=grand_total+total_price
+        #print(i.username)
+        #print('cart value- ',grand_total)
+        #print(i.product_id)
+        #print("quantity ",+i.quantity)
+        #dict1['grand_total']=grand_total
+        print(dict1)
+        context={
+        'data':dict1,
+        'total':grand_total
+        }
+    return render(request,'./viewcart.html',context)
